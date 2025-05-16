@@ -1,0 +1,126 @@
+.main-page-wrapper {
+  display: flex;
+  justify-content: center;
+  direction: rtl;
+  padding: 40px 60px;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.main-content-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 1300px;
+  width: 100%;
+}
+
+/* צד שמאל – המאמרים */
+.main-articles {
+  flex: 1;
+  min-width: 700px;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.article-card {
+  width: 100%;
+  max-width: 250px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.article-image {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.article-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #444;
+}
+
+/* צד ימין – התראות */
+.alerts-panel {
+  width: 200px;         /* ← הגדלה לרוחב */
+  min-width: 320px;     /* ← גם מינימום גדול יותר */
+  background:  #F0F4F8;
+border: 2px solid rgb(0, 72, 255);
+
+  border-radius: 12px;
+  padding: 30px;         /* אופציונלי: מעט יותר ריווח פנימי */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+   align-self: stretch;
+     height: auto; 
+  color: white;
+    position: relative; 
+}
+
+
+.alerts-panel h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #2113e3;
+}
+
+.alert-box {
+  background: #fff8e1;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1.4rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  margin-bottom: 12px;
+  transition: background 0.3s;
+}
+
+.alert-box:hover {
+  background-color: #0946ed;
+  color: #F0F4F8;
+}
+
+/* רספונסיביות */
+@media (max-width: 1100px) {
+  .main-content-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .alerts-panel {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+
+  .main-articles {
+    min-width: 100%;
+  }
+}

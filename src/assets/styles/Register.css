@@ -1,0 +1,97 @@
+/* עיצוב קונטיינר ההרשמה */
+.register-container {
+  width: 350px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* מרכז את כל התוכן בתוך הקונטיינר */
+}
+
+/* עיצוב הטופס - מרכז את השדות */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* תוויות - מרכזות את הטקסט */
+.register-form label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+/* מיכל לשדה עם אייקון */
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+/* מיקום האייקון - מצד שמאל */
+.input-with-icon .icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #aaa;
+  pointer-events: none;
+}
+
+/* עיצוב שדות קלט ובחירה - מרכז את הטקסט בתוך השדה */
+.register-input,
+.register-select {
+  width: 100%;
+  padding: 10px 10px 10px 40px; /* מקום לאייקון בצד שמאל */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+  text-align: center; /* מרכז את הטקסט שנכתב בשדה */
+}
+
+.register-input:focus,
+.register-select:focus {
+  border-color: #6c5ce7;
+  outline: none;
+}
+
+/* כפתור הרשמה */
+.register-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+/* הודעות */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success-message {
+  color: #0056b3;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}

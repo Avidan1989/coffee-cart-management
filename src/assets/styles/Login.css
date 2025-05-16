@@ -1,0 +1,96 @@
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #ff4757;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* שדות עם אייקונים */
+.input-with-icons {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px 40px 10px 40px; /* מרווח מימין ומשמאל לאייקונים */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #e8f0fe;
+  box-sizing: border-box;
+}
+
+.login-input:focus {
+  border-color: #6c5ce7;
+  outline: none;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #555;
+}
+
+/* מיקום האייקונים */
+.user-icon {
+  left: 10px;
+}
+
+.lock-icon {
+  left: 10px;
+}
+
+.toggle-icon {
+  left: 40px;
+  cursor: pointer;
+}
+
+/* כפתורים */
+.login-button,
+.register-button {
+  width: 150px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #6c5ce7;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.register-button:hover {
+  background-color: #5941b5;
+}

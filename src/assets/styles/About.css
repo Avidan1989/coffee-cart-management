@@ -1,0 +1,130 @@
+/* עיצוב כללי לעמוד על אודות */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 28px;
+  margin-top: 20px;
+}
+
+/* עיצוב של הקטגוריה ההקדמה */
+.intro-section {
+  width: 100%;
+  max-width: 900px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.intro-section p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* עיצוב של כל אחת מהקטגוריות (צוות, חזון, מיסיה, קשר) */
+.team-section,
+.vision-section,
+.mission-section,
+.contact-section {
+  width: 100%;
+  max-width: 900px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+/* עיצוב כותרות */
+.team-section h2,
+.vision-section h2,
+.mission-section h2,
+.contact-section h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* עיצוב פסקאות */
+p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* עיצוב צוות עובדים */
+.team-members {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.team-member {
+  text-align: center;
+  width: 150px;
+}
+
+.team-member img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.team-member h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.team-member p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* עיצוב קישורים */
+.contact-section a {
+  color: #4B0082;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.contact-section a:hover {
+  text-decoration: underline;
+  color: #3A0066;
+}
+
+/* עיצוב עבור שגיאות */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}

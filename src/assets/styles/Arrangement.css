@@ -1,0 +1,288 @@
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+/* כל div */
+div {
+  text-align: center;
+  margin: 20px;
+  background-color: white;
+}
+
+/* כותרת ראשית */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #6a11cb;
+}
+
+/* input קבצים */
+input[type="file"] {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #e8eaf6;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+input[type="file"]:hover {
+  background-color: #d1d9f0;
+}
+
+/* כפתורי אדמין – בשורה אחת */
+.admin-controls {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/* כפתורים כלליים */
+button{
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #6c5ce7, #978fe5);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #4a3fbf, #7c6ff0);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* הגדלת הטבלה מבחינת טקסט וריווח */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top:1px;
+  font-size: 2rem; /* ⬅️ גודל טקסט מוגדל */
+  text-align: center;
+}
+
+/* שורות הטבלה */
+th,
+td {
+  padding: 5px 18px; /* ⬅️ ריווח מוגדל */
+  border: 1px solid #ddd;
+  line-height: 1.6;
+}
+
+/* כותרות */
+th {
+  background: #4a8ef5;
+  color: white;
+  font-weight: bold;
+}
+
+/* שורות גוף */
+td {
+  background-color: #F0F4F8;
+}
+
+/* אפקט ריחוף */
+td:not(:first-child):hover {
+  background-color: #ffe0f0;
+}
+
+/* אופציונלי: הגדלה כללית עם scale */
+.table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  transform: scale(1.1); /* ⬅️ אפשר לשחק עם 1.1 → 1.2 */
+  transform-origin: top center;
+}
+
+/* טופס סידור עבודה */
+.weekly-form {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-radius: 10px;
+}
+
+.weekly-form input,
+.weekly-form select {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.weekly-form button {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.weekly-form button:hover {
+  background: linear-gradient(135deg, #388e3c, #4caf50);
+}
+
+/* טבלת סידור עבודה */
+.weekly-schedule-view table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.weekly-schedule-view th,
+.weekly-schedule-view td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+.arrangement-container {
+  max-width: 95%;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.arrangement-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.arrangement-date-input {
+  width: 200px;       /* גודל קטן יותר */
+  padding: 6px 12px;  /* ריווח פנימי נעים */
+  font-size: 1.4rem;    /* גודל טקסט קטן יותר */
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.weekly-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.weekly-table th,
+.weekly-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.shift-row:nth-child(even) {
+  background-color: #f0f7ff;
+}
+
+.shift-label {
+  font-weight: bold;
+}
+
+.shift-cell {
+  min-width: 130px;
+}
+
+.employee-select,
+
+
+
+.save-buttonn {
+  display: inline-block;
+  padding: 4px 10px;            /* פחות ריווח פנימי = קטן יותר */
+  font-size:2.2rem;            /* טקסט קטן יותר */
+  background-color: #9d88d4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: unset;             /* ביטול רוחב מינימלי אם יש */
+  max-width: fit-content;       /* שלא יתפוס יותר מדי */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #523c99;
+}
+
+.weekly-table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.employee-select {
+  font-size: 1.1rem;
+  color: black;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background-color: white;
+  min-width: 160px;
+}
+
+.time-range select {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 100px;
+}
+
+.delete-shift-btn {
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: 0.2s ease;
+}
+
+.delete-shift-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.reminder-setup {
+  position: absolute;
+  top: 150px;        /* המרחק מהחלק העליון של הדף */
+  right: 30px;       /* מיקום מצד ימין */
+  font-size: 1rem;   /* גודל טקסט קטן */
+  background-color: #f9f9f9; /* רקע בהיר (רשות) */
+  padding: 20px;     /* רווח פנימי */
+  border-radius: 8px; /* פינות מעוגלות */
+  box-shadow: 0 0 5px rgba(0,0,0,0.1); /* צל קל */
+  z-index: 999;
+}
+.reminder-setup label,
+.reminder-setup select {
+  font-size: 1.4rem;
+  vertical-align: middle;
+  line-height: 1.5;
+}

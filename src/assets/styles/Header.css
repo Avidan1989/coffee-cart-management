@@ -1,0 +1,125 @@
+.main-header {
+  background-color: #F0F4F8; /* רקע מודרני ונקי */
+  width: 100%;
+  height: 132px;
+  position: sticky;
+  top: 0;
+  direction: rtl;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.header__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 30px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  gap: 16px;
+  justify-content: flex-start;
+  min-width: fit-content;
+}
+
+.logo-img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: transparent;
+  padding: 6px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  color: #2E3A59; /* טקסט כהה יותר */
+  line-height: 1.2;
+  font-weight: bold;
+  text-align: right;
+  background-color: transparent;
+}
+
+/* 🟣 מרכז – כפתורים */
+.center-buttons {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-button {
+  background: linear-gradient(135deg, #6c5ce7, #978fe5); /* כחול עמוק */
+  color: white;
+  padding: 10px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.nav-button:hover {
+  background: linear-gradient(135deg, #3B5BDB, #4263EB);
+  transform: translateY(-3px);
+}
+
+.nav-button.active {
+  background: linear-gradient(135deg, #364FC7, #4C6EF5);
+  color: white;
+}
+
+/* 🟡 שמאל – ברוך הבא + כפתור Log Out */
+.user-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding-left: 10px;
+  width: fit-content;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #1548cb;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FA5252); /* ורוד־אדמדם נעים */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 24px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  width: fit-content;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #E03131, #C92A2A);
+  transform: translateY(-2px);
+}
+
+/* מבטל רקעים לבנים פנימיים שעשויים להידרס ממקומות אחרים */
+.main-header *,
+.header__wrap *,
+.logo-area *,
+.center-buttons *,
+.user-section * {
+  background-color: transparent !important;
+}

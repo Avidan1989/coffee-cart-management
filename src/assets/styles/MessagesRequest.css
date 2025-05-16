@@ -1,0 +1,131 @@
+/* מיכל ראשי */
+.messages-request-container {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", sans-serif;
+  direction: rtl;
+}
+
+/* כותרת */
+.messages-request-container h2 {
+  text-align: center;
+  color: #4a148c;
+  font-size: 4rem;
+  margin-bottom: 35px;
+  border-bottom: 3px solid #7b1fa2;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* כפתורי ניווט (פנייה חדשה / הודעות קודמות) */
+.messages-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.messages-buttons button {
+  background:  linear-gradient(to right, #6e6ee5, #00b5ac);
+  color: white;
+  padding: 14px 26px;
+  font-size:1.4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.messages-buttons button:hover {
+  background: linear-gradient(to right, #a5fefb, #9a1b63);
+  transform: translateY(-3px);
+}
+
+/* טופס שליחת פנייה */
+.request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-color: #f5f3fa;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.request-form input,
+.request-form textarea {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #b39ddb;
+  background-color: #fff;
+  transition: border 0.3s ease;
+}
+
+.request-form input:focus,
+.request-form textarea:focus {
+  border-color: #7e57c2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(124, 77, 255, 0.2);
+}
+
+.request-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* כפתור שליחה */
+.request-form button {
+  align-self: center;
+  background-color: #4a148c;
+  color: white;
+  padding: 14px 38px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.request-form button:hover {
+  background-color: #6a1b9a;
+  transform: scale(1.05);
+}
+
+/* הודעות קודמות */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.message-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid #ccc;
+  word-break: break-word; /* ✅ שובר מילים ארוכות */
+  overflow-wrap: anywhere; /* ✅ תומך גם במילים לא ניתנות לשבירה */
+}
+
+.message-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* טקסט בתוך כרטיס */
+.message-card p {
+  margin: 6px 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+.message-card strong {
+  color: #3936dc;
+}

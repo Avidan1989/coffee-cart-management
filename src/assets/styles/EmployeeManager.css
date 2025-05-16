@@ -1,0 +1,221 @@
+.employee-manager-container {
+  padding: 40px;
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  direction: rtl;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 26px;
+  color: #4a0072;
+  margin-bottom: 30px;
+}
+
+.tab-buttons,
+.sub-tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button,
+.sub-tab-buttons button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  background: linear-gradient(to right, #1010d3, #00b5ac);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.tab-buttons button.active,
+.sub-tab-buttons button.active {
+     background: linear-gradient(to right, #1010d3, #00b5ac);
+  color: white;
+}
+
+.tab-content {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+select {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px;
+  margin-bottom: 15px; /* ← להפרדה מהכפתורים! */
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.actions-box,
+.edit-user-form {
+  background-color: #ffffff;
+  padding: 30px 20px 20px 20px; /* רווח עליון יותר בשביל האיקס */
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  margin-top: 20px;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: -12px; /* טיפה קרוב יותר */
+  right: -12px; /* קרוב לפינה */
+  width: 26px; /* יותר קטן */
+  height: 26px; /* יותר קטן */
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%; /* עיגול מלא */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: none; /* בלי שינוי צבע */
+}
+
+.close-btn:hover,
+.close-btn:active,
+.close-btn:focus {
+  background-color: #f44336;
+  color: white;
+}
+
+
+/* מונע שינוי צבע גם במצבי hover / active / focus */
+.close-btn:hover,
+.close-btn:active,
+.close-btn:focus {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+
+
+
+
+.close-btn:hover {
+  color: #a00;
+}
+
+.edit-user-form input[type="text"],
+.edit-user-form input[type="email"],
+.edit-user-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.role-selection {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background-color: #388e3c;
+}
+
+.block-btn {
+  background-color: #f44336 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  margin: 5px 0 !important;
+  cursor: pointer !important;
+}
+
+.restore-btn {
+  background-color: #2196f3 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  margin: 5px 0 !important;
+  cursor: pointer !important;
+}
+
+.request-list-scroll {
+  width: 70%;
+  max-height: 400px;
+  overflow-y: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* הוספנו רווח אנכי בין הודעות */
+}
+
+.request-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* margin-bottom: 16px; ← אפשר למחוק */
+}
+.user-search-input,
+.user-select-dropdown {
+  width: 300px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.4rem;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #dfe6fd, #f4f7ff);
+  color: #2d3436;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+  direction: rtl;
+  appearance: none; /* מסיר עיצוב ברירת מחדל */
+}
+
+.user-search-input:focus,
+.user-select-dropdown:focus {
+  outline: none;
+  border: none;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
