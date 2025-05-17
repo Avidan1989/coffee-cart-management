@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 const db = require("../dbSingleton").getConnection("products_db");
 const { isAuthenticated } = require("./middleware");
 
@@ -15,26 +13,45 @@ const upload = multer({
 // שליחת פנייה עם קובץ
 router.post("/send", isAuthenticated, upload.single("file"), (req, res) => {
   const userId = req.session.user?.id;
-  const { reason, date } = req.body;
+  const { reason, fromDate, toDate } = req.body;
   const filePath = req.file ? req.file.filename : null;
 
-  if (!reason || !date) {
-    return res.status(400).json({ error: "יש למלא תאריך וסיבה" });
+  if (!reason || !fromDate || !toDate) {
+    return res.status(400).json({ error: "יש למלא סיבה וטווח תאריכים" });
   }
 
-  const sql = `
-    INSERT INTO employee_requests (user_id, reason, date, file_path)
-    VALUES (?, ?, ?, ?)
+  const checkOverlapSql = `
+    SELECT id FROM employee_requests
+    WHERE user_id = ? AND status != 'rejected'
+    AND (
+      (from_date BETWEEN ? AND ?) OR
+      (to_date BETWEEN ? AND ?) OR
+      (? BETWEEN from_date AND to_date)
+    )
   `;
 
-  db.query(sql, [userId, reason, date, filePath], (err) => {
-    if (err) {
-      console.error("שגיאה בשמירה ל־DB:", err);
-      return res.status(500).json({ error: "שגיאה בשמירה" });
-    }
+  db.query(
+    checkOverlapSql,
+    [userId, fromDate, toDate, fromDate, toDate, fromDate],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: "שגיאה בבדיקת כפילויות" });
 
-    res.status(201).json({ message: "הפנייה נשלחה" });
-  });
+      if (results.length > 0) {
+        return res.status(400).json({ error: "כבר שלחת אילוץ בטווח הזה" });
+      }
+
+      // המשך הכנסת הפנייה
+      const sql = `
+        INSERT INTO employee_requests (user_id, reason, from_date, to_date, file_path, status, created_at)
+        VALUES (?, ?, ?, ?, ?, 'pending', NOW())
+      `;
+
+      db.query(sql, [userId, reason, fromDate, toDate, filePath], (err) => {
+        if (err) return res.status(500).json({ error: "שגיאה בשמירה" });
+        res.status(201).json({ message: "הפנייה נשלחה" });
+      });
+    }
+  );
 });
 
 // 🆕 שליפת ההודעות של העובד הנוכחי
@@ -57,5 +74,10 @@ router.get("/my-requests", isAuthenticated, (req, res) => {
     res.json(results);
   });
 });
+
+
+
+
+
 
 module.exports = router;

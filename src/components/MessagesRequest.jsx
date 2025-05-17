@@ -4,7 +4,8 @@ import "../assets/styles/MessagesRequest.css";
 
 function MessagesRequest() {
   const [reason, setReason] = useState("");
-  const [date, setDate] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [file, setFile] = useState(null);
   const [view, setView] = useState("form");
   const [messages, setMessages] = useState([]);
@@ -24,10 +25,35 @@ function MessagesRequest() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // ולידציה: תאריך התחלה חייב להיות קטן או שווה לתאריך סיום
+    if (new Date(fromDate) > new Date(toDate)) {
+      toast.error("תאריך התחלה לא יכול להיות אחרי תאריך סיום");
+      return;
+    }
+
+    // בדיקה אם כבר יש אילוץ חופף בטווח התאריכים
+    const hasOverlap = messages.some((msg) => {
+      const from1 = new Date(fromDate);
+      const to1 = new Date(toDate);
+      const from2 = new Date(msg.from_date);
+      const to2 = new Date(msg.to_date);
+      return (
+        msg.status !== "rejected" &&
+        ((from1 >= from2 && from1 <= to2) ||
+          (to1 >= from2 && to1 <= to2) ||
+          (from2 >= from1 && from2 <= to1))
+      );
+    });
+
+    if (hasOverlap) {
+      toast.error("כבר שלחת אילוץ בטווח הזה");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("reason", reason);
-    formData.append("date", date);
+    formData.append("fromDate", fromDate);
+    formData.append("toDate", toDate);
     if (file) formData.append("file", file);
 
     try {
@@ -41,7 +67,8 @@ function MessagesRequest() {
       if (res.ok) {
         toast.success("הפנייה נשלחה בהצלחה");
         setReason("");
-        setDate("");
+        setFromDate("");
+        setToDate("");
         setFile(null);
       } else {
         toast.error(data.error || "שגיאה בשליחת פנייה");
@@ -65,13 +92,22 @@ function MessagesRequest() {
           className="request-form"
           encType="multipart/form-data"
         >
-          <label>תאריך:</label>
+          <label>מתאריך:</label>
           <input
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
             required
           />
+
+          <label>עד תאריך:</label>
+          <input
+            type="date"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            required
+          />
+
           <label>סיבה:</label>
           <textarea
             value={reason}
@@ -92,8 +128,9 @@ function MessagesRequest() {
             messages.map((msg) => (
               <div key={msg.id} className="message-card">
                 <p>
-                  <strong>תאריך:</strong>{" "}
-                  {new Date(msg.date).toLocaleDateString("he-IL")}
+                  <strong>טווח תאריכים:</strong>{" "}
+                  {new Date(msg.from_date).toLocaleDateString("he-IL")} -{" "}
+                  {new Date(msg.to_date).toLocaleDateString("he-IL")}
                 </p>
                 <p>
                   <strong>סיבה:</strong> {msg.reason}
@@ -120,7 +157,7 @@ function MessagesRequest() {
                 <p>
                   <strong>סטטוס הפנייה:</strong>{" "}
                   {msg.status === "approved"
-                    ? "✅ הפנייה אושרה"
+                    ? "✅ מנהל קיבל את האילוץ"
                     : msg.status === "rejected"
                     ? "❌ הפנייה נדחתה"
                     : "⏳ ממתינה לטיפול"}

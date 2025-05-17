@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/styles/ManageEmployeeRequests.css";
-
+import { useLocation } from "react-router-dom";
 function ManageEmployeeRequests() {
   const [employees, setEmployees] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -8,6 +8,17 @@ function ManageEmployeeRequests() {
   const [managerComments, setManagerComments] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [showOldMessages, setShowOldMessages] = useState(false);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const autoOpen = queryParams.get("autoOpen");
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     fetch("/employee-manager/requests/employees", { credentials: "include" })
@@ -15,6 +26,17 @@ function ManageEmployeeRequests() {
       .then(setEmployees)
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    if (autoOpen === "latest" && employees.length > 0) {
+      const withPending = employees.find((e) => e.pending_count > 0);
+      if (withPending) {
+        fetchRequestsForUser(withPending.id);
+      }
+    }
+  }, [autoOpen, employees]);
+  
+
 
   const fetchRequestsForUser = (id) => {
     setSelectedUserId(id);
@@ -125,9 +147,11 @@ function ManageEmployeeRequests() {
           {pendingRequests.map((r) => (
             <div className="manage-requests-card" key={r.id}>
               <p>
-                <strong>תאריך אילוץ:</strong>{" "}
-                {new Date(r.date).toLocaleDateString("he-IL")}
+                <strong>טווח תאריכים:</strong>{" "}
+                {new Date(r.from_date).toLocaleDateString("he-IL")} -{" "}
+                {new Date(r.to_date).toLocaleDateString("he-IL")}
               </p>
+
               <p>
                 <strong>סיבה:</strong> {r.reason}
               </p>
@@ -151,28 +175,12 @@ function ManageEmployeeRequests() {
               </p>
 
               <div className="manage-requests-response">
-                <textarea
-                  placeholder="כתוב תגובת מנהל..."
-                  value={managerComments[r.id] || ""}
-                  onChange={(e) =>
-                    setManagerComments((prev) => ({
-                      ...prev,
-                      [r.id]: e.target.value,
-                    }))
-                  }
-                />
                 <div className="manage-requests-buttons">
                   <button
                     className="manage-requests-approve"
                     onClick={() => handleDecision(r.id, "approved")}
                   >
-                    ✅ מאשר
-                  </button>
-                  <button
-                    className="manage-requests-reject"
-                    onClick={() => handleDecision(r.id, "rejected")}
-                  >
-                    ❌ דוחה
+                    ✅מקבל
                   </button>
                 </div>
               </div>
@@ -195,17 +203,16 @@ function ManageEmployeeRequests() {
           {oldRequests.map((r) => (
             <div className="manage-requests-card old-message" key={r.id}>
               <p>
-                <strong>תאריך:</strong>{" "}
-                {new Date(r.date).toLocaleDateString("he-IL")}
+                <strong>טווח תאריכים:</strong>{" "}
+                {new Date(r.from_date).toLocaleDateString("he-IL")} -{" "}
+                {new Date(r.to_date).toLocaleDateString("he-IL")}
               </p>
+
               <p>
                 <strong>סיבה:</strong> {r.reason}
               </p>
               <p>
                 <strong>סטטוס:</strong> {renderStatus(r.status)}
-              </p>
-              <p>
-                <strong>תגובה מנהל:</strong> {r.manager_comment || "אין"}
               </p>
             </div>
           ))}
@@ -218,12 +225,15 @@ function ManageEmployeeRequests() {
 function renderStatus(status) {
   switch (status) {
     case "approved":
-      return <span className="status-approved">✅ אושר</span>;
+      return <span className="status-approved">✅מנהל קיבל את האישור</span>;
     case "rejected":
-      return <span className="status-rejected">❌ נדחה</span>;
+      return <span className="status-rejected">✅מנהל קיבל את האישור</span>;
     default:
-      return <span className="status-pending">⏳ממתין לאישור</span>;
+      return (
+        <span className="status-pending">מנהל עדיין לא קיבלת את האישור </span>
+      );
   }
 }
+
 
 export default ManageEmployeeRequests;

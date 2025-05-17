@@ -145,7 +145,10 @@ function MainPage() {
               </Link>
             )}
             {hasPendingMessages && (
-              <Link to="/employee-manager/requests" className="alert-box">
+              <Link
+                to="/employee-manager/requests?autoOpen=latest"
+                className="alert-box"
+              >
                 📩 פניות חדשות מעובדים
               </Link>
             )}

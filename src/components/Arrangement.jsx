@@ -13,6 +13,57 @@ function Arrangement() {
     () => localStorage.getItem("weekStart") || ""
   );
   const [datesForWeek, setDatesForWeek] = useState([]);
+  const [constraints, setConstraints] = useState([]);
+
+  function getWeekEnd(startDate) {
+    const d = new Date(startDate);
+    d.setDate(d.getDate() + 6);
+    return d.toISOString().split("T")[0];
+  }
+  useEffect(() => {
+    if (user?.role !== "admin" || !weekStart) return;
+
+    fetch(
+      `/workers/constraints?from=${weekStart}&to=${getWeekEnd(weekStart)}`,
+      {
+        credentials: "include",
+      }
+    )
+      .then((res) => res.json())
+      .then(setConstraints)
+      .catch(() => toast.error("שגיאה בשליפת אילוצים"));
+  }, [user, weekStart]);
+
+  function hasConstraint(userId, date) {
+    return constraints.some(
+      (c) =>
+        c.user_id === userId &&
+        new Date(date) >= new Date(c.from_date) &&
+        new Date(date) <= new Date(c.to_date)
+    );
+  }
+  const unlockConstraint = async (constraintId) => {
+    try {
+      const res = await fetch(`/workers/unlock/${constraintId}`, {
+        method: "PUT",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "שגיאה לא ידועה");
+      }
+
+      toast.success("האילוץ שוחרר בהצלחה");
+
+      // ❗ חובה להסיר מהסטייט כדי לעדכן את התצוגה
+      setConstraints((prev) => prev.filter((c) => c.id !== constraintId));
+    } catch (err) {
+      console.error("שגיאה בשחרור האילוץ:", err);
+      toast.error("שגיאה בשחרור האילוץ");
+    }
+  };
+  
 
   const days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
   const shifts = ["בוקר", "צהריים", "ערב"];
@@ -82,6 +133,14 @@ function Arrangement() {
     scheduleData.find((r) => r.day === day && r.shift_type === shiftType);
 
   const updateShift = (day, shiftType, employee_name) => {
+    const selectedUser = allUsers.find(
+      (u) =>
+        `${u.first_name} ${u.last_name}`.trim().toLowerCase() ===
+        employee_name.trim().toLowerCase()
+    );
+
+    const user_id = selectedUser ? selectedUser.id : undefined;
+
     setScheduleData((prev) => {
       const updated = [...prev];
       const idx = updated.findIndex(
@@ -89,12 +148,14 @@ function Arrangement() {
       );
       if (idx !== -1) {
         updated[idx].employee_name = employee_name;
+        updated[idx].user_id = user_id; // 💥 שמירה של user_id
       } else {
         updated.push({
-          id: undefined, // חשוב! כדי שלא יהיה undefined מאוחר יותר
+          id: undefined,
           day,
           shift_type: shiftType,
           employee_name,
+          user_id, // 💥 כאן מוסיפים
           hours: "",
           week_start: weekStart,
         });
@@ -102,6 +163,7 @@ function Arrangement() {
       return updated;
     });
   };
+  
 
   const updateHours = (day, shiftType, part, value) => {
     setScheduleData((prev) => {
@@ -387,23 +449,117 @@ function Arrangement() {
                     <td key={day + shift} className="shift-cell">
                       {user?.role === "admin" ? (
                         <>
-                          <select
-                            className="employee-select"
-                            value={current?.employee_name || ""}
-                            onChange={(e) =>
-                              updateShift(day, shift, e.target.value)
-                            }
-                          >
-                            <option value="" hidden></option>
-                            {allUsers.map((u) => (
-                              <option
-                                key={u.id}
-                                value={`${u.first_name} ${u.last_name}`}
-                              >
-                                {u.first_name} {u.last_name}
-                              </option>
-                            ))}
-                          </select>
+                          <div className="employee-select-wrapper">
+                            <select
+                              className="employee-select"
+                              value={current?.employee_name || ""}
+                              onChange={(e) =>
+                                updateShift(day, shift, e.target.value)
+                              }
+                            >
+                              <option value="" hidden></option>
+                              {allUsers.map((u) => {
+                                const fullName = `${u.first_name} ${u.last_name}`;
+                                const date = datesForWeek[days.indexOf(day)];
+                                const isBlocked = hasConstraint(u.id, date);
+
+                                return (
+                                  <option
+                                    key={u.id}
+                                    value={fullName}
+                                    disabled={isBlocked}
+                                    style={isBlocked ? { color: "#999" } : {}}
+                                  >
+                                    {fullName} {isBlocked ? "🔒 אילוץ" : ""}
+                                  </option>
+                                );
+                              })}
+                            </select>
+
+                            {(() => {
+                              const date = datesForWeek[days.indexOf(day)];
+
+                              // מחפש אילוץ לפי כל המשתמשים האפשריים בתאריך הזה
+                              const matchingConstraint = constraints.find(
+                                (c) =>
+                                  new Date(date) >= new Date(c.from_date) &&
+                                  new Date(date) <= new Date(c.to_date)
+                              );
+
+                              return (
+                                matchingConstraint && (
+                                  <button
+                                    onClick={() =>
+                                      unlockConstraint(matchingConstraint.id)
+                                    }
+                                    style={{
+                                      marginTop: "4px",
+                                      fontSize: "0.7rem",
+                                      backgroundColor: "#ffc107",
+                                      border: "none",
+                                      padding: "3px 8px",
+                                      borderRadius: "4px",
+                                      cursor: "pointer",
+                                    }}
+                                  >
+                                    🔓 שחרר אילוץ
+                                  </button>
+                                )
+                              );
+                            })()}
+                          </div>
+
+                          {(() => {
+                            const date = datesForWeek[days.indexOf(day)];
+                            const selectedUser = allUsers.find(
+                              (u) =>
+                                `${u.first_name} ${u.last_name}`
+                                  .trim()
+                                  .toLowerCase() ===
+                                (current?.employee_name || "")
+                                  .trim()
+                                  .toLowerCase()
+                            );
+
+                            const constraint = selectedUser
+                              ? constraints.find((c) => {
+                                  const currentDate = date;
+                                  return (
+                                    c.user_id === selectedUser.id &&
+                                    currentDate >= c.from_date &&
+                                    currentDate <= c.to_date
+                                  );
+                                })
+                              : null;
+
+                            // הדפסות דיבאג ברורות:
+                            console.log("📅 תאריך המשמרת:", date);
+                            console.log("👤 עובד שנבחר:", selectedUser);
+                            console.log("📋 אילוצים זמינים:", constraints);
+                            console.log("✅ אילוץ תואם שמצאנו:", constraint);
+
+                            return (
+                              constraint && (
+                                <button
+                                  onClick={() =>
+                                    unlockConstraint(constraint.id)
+                                  }
+                                  style={{
+                                    marginTop: "4px",
+                                    fontSize: "0.7rem",
+                                    backgroundColor: "#ffc107",
+                                    border: "none",
+                                    padding: "3px 8px",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  🔓 שחרר אילוץ
+                                </button>
+                              )
+                            );
+                          })()}
+
                           <div className="time-range">
                             <select
                               value={current?.hours || ""}
