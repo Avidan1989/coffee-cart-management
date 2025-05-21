@@ -1,0 +1,17 @@
+.map-container {
+  height: 300px !important;
+  width: 100% !important;
+  max-width: 100%;
+  border-radius: 10px;
+  margin: auto;
+  z-index: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* חיזוק עבור leaflet עצמו */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 0;
+}

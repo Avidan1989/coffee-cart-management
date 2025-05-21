@@ -1,0 +1,70 @@
+.messege-container {
+  max-width: 850px;
+  margin: auto;
+  padding: 40px 30px;
+  direction: rtl;
+  font-family: "Segoe UI", sans-serif;
+}
+
+h2, h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.customers-table th,
+.customers-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: right;
+  background-color: #fff;
+}
+
+.customers-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.customer-form,
+.promo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.customer-form input,
+.promo-form input,
+.promo-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.customer-form button,
+.promo-form button {
+  background-color: #6a5acd;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.customer-form button:hover,
+.promo-form button:hover {
+  background-color: #5a48c9;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}

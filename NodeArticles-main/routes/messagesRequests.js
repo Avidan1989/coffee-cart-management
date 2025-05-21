@@ -59,11 +59,11 @@ router.get("/my-requests", isAuthenticated, (req, res) => {
   const userId = req.session.user?.id;
 
   const sql = `
-    SELECT id, date, reason, file_path, response, status, manager_comment
-    FROM employee_requests
-    WHERE user_id = ?
-    ORDER BY created_at DESC
-  `;
+  SELECT id, reason, file_path, response, status, manager_comment, from_date, to_date, created_at
+  FROM employee_requests
+  WHERE user_id = ?
+  ORDER BY created_at DESC
+`;
 
   db.query(sql, [userId], (err, results) => {
     if (err) {

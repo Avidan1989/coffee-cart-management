@@ -489,17 +489,20 @@ function Arrangement() {
                               return (
                                 matchingConstraint && (
                                   <button
+                                    className="eiluz"
                                     onClick={() =>
                                       unlockConstraint(matchingConstraint.id)
                                     }
                                     style={{
-                                      marginTop: "4px",
-                                      fontSize: "0.7rem",
+                                      marginTop: "6px",
+                                      fontSize: "1rem", // ⬅️ גודל טקסט גדול יותר
                                       backgroundColor: "#ffc107",
                                       border: "none",
-                                      padding: "3px 8px",
-                                      borderRadius: "4px",
+                                      padding: "8px 14px", // ⬅️ ריווח פנימי גדול יותר
+                                      borderRadius: "6px",
                                       cursor: "pointer",
+                                      fontWeight: "bold", // ⬅️ טקסט מודגש
+                                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)", // ⬅️ צל קל
                                     }}
                                   >
                                     🔓 שחרר אילוץ
@@ -544,15 +547,7 @@ function Arrangement() {
                                   onClick={() =>
                                     unlockConstraint(constraint.id)
                                   }
-                                  style={{
-                                    marginTop: "4px",
-                                    fontSize: "0.7rem",
-                                    backgroundColor: "#ffc107",
-                                    border: "none",
-                                    padding: "3px 8px",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                  }}
+                                  className="unlock-button"
                                 >
                                   🔓 שחרר אילוץ
                                 </button>
@@ -578,16 +573,6 @@ function Arrangement() {
                             <button
                               className="delete-shift-btn"
                               onClick={() => deleteShift(day, shift)}
-                              style={{
-                                marginTop: "6px",
-                                fontSize: "0.8rem",
-                                padding: "4px 10px",
-                                backgroundColor: "#ff6b6b",
-                                color: "#fff",
-                                border: "none",
-                                borderRadius: "6px",
-                                cursor: "pointer",
-                              }}
                             >
                               🗑 מחק
                             </button>

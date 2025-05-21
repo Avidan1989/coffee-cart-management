@@ -1,0 +1,138 @@
+/* תיבת עוטפת */
+.sales-wrapper {
+  padding: 30px;
+  direction: rtl;
+  background: #f7f7f7;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* תיבת מע"מ */
+.vat-box {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* פריסת שלוש הקטגוריות */
+.section-grid {
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* כל כרטיס של קטגוריה */
+.section {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s ease;
+}
+
+.section:hover {
+  transform: translateY(-4px);
+}
+
+/* כותרת בכל כרטיס */
+.section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+/* קלטים */
+.section input[type="number"],
+.section input[type="date"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.2s ease;
+}
+
+.section input[type="number"]:focus,
+.section input[type="date"]:focus {
+  border-color: #6a1b9a;
+  outline: none;
+}
+
+/* כפתורים */
+.section button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background: linear-gradient(135deg, #6c5ce7, #978fe5);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.section button:hover {
+  background: linear-gradient(to right, #4a148c, #7b1fa2);
+  transform: scale(1.02);
+}
+
+/* פסקאות של סיכומים */
+.section p {
+  text-align: center;
+  font-size: 16px;
+  margin: 6px 0;
+  color: #333;
+}
+.vat-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  width: fit-content;
+  margin-right: 0;
+margin-left: auto;
+}
+
+.vat-box label,
+.vat-box span {
+  font-weight: bold;
+}
+
+.vat-box input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.vat-update-btn {
+  padding: 5px 10px;
+  font-size: 13px;
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.vat-update-btn:hover {
+  background-color: #4a148c;
+}
+

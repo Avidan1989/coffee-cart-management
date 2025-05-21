@@ -286,3 +286,37 @@ td:not(:first-child):hover {
   vertical-align: middle;
   line-height: 1.5;
 }
+
+.unlock-button {
+  margin-top: 6px;
+  font-size: 1rem;
+  background-color: #ffc107;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.unlock-button:hover {
+  background-color: #e0a800;
+}
+.delete-shift-btn {
+  margin-top: 6px;
+  font-size: 1rem; /* זהה ל-unlock-button */
+  padding: 8px 14px;
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.delete-shift-btn:hover {
+  background-color: #e04a4a;
+}

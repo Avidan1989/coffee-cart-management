@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { calculatePriceWithVAT } from "./vatConfig";
 
 function ManagerProduct() {
   const { user } = useContext(AuthContext);
@@ -187,54 +188,45 @@ function ManagerProduct() {
     }
   };
 
-  const handleExportFullStock = async () => {
-    try {
-      const response = await fetch("/prods/export-excel", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to export Excel");
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "inventory.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      toast.success("קובץ מלאי מלא ייצא בהצלחה");
-    } catch (err) {
-      console.error("Export error:", err);
-      toast.error("שגיאה ביצוא מלאי מלא");
-    }
+  const handleExportFullStock = () => {
+    const worksheetData = filteredProducts.map((product) => ({
+      "שם מוצר": product.name,
+      SKU: product.SKU,
+      כמות: product.quantity,
+      'מחיר כולל מע"מ': calculatePriceWithVAT(product.price),
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "מלאי");
+
+    XLSX.writeFile(workbook, "inventory_with_vat.xlsx");
+    toast.success('קובץ מלאי מלא נוצר בהצלחה');
   };
 
-  const handleExportLowStock = async () => {
-    try {
-      const response = await fetch("/prods/export-low-stock", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.status === 204) {
-        toast.info("אין מוצרים עם חוסר במלאי");
-        return;
-      }
-      if (!response.ok) throw new Error("שגיאה ביצוא");
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "low_stock.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      toast.success("קובץ חוסר מלאי ייצא בהצלחה");
-    } catch (err) {
-      console.error("Export low stock error:", err);
-      toast.error("שגיאה ביצוא חוסר מלאי");
-    }
-  };
+  const handleExportLowStock = () => {
+    const lowStockProducts = products.filter((p) => p.quantity < 10);
 
+    if (lowStockProducts.length === 0) {
+      toast.info("אין מוצרים עם חוסר במלאי");
+      return;
+    }
+
+    const worksheetData = lowStockProducts.map((product) => ({
+      "שם מוצר": product.name,
+      SKU: product.SKU,
+      כמות: product.quantity,
+      'מחיר כולל מע"מ': calculatePriceWithVAT(product.price),
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "חוסר מלאי");
+
+    XLSX.writeFile(workbook, "low_stock_with_vat.xlsx");
+    toast.success('קובץ חוסר מלאי נוצר בהצלחה!');
+  };
+  
   const handleDeleteAll = async () => {
     console.log("נשלחת בקשת מחיקה");
     try {
@@ -522,7 +514,7 @@ function ManagerProduct() {
                   )}
                   <td>{p.name}</td>
                   <td>{p.SKU}</td>
-                  <td>{p.price}</td>
+                  <td>{calculatePriceWithVAT(p.price)} ₪</td>
                   <td>{p.quantity}</td>
                   <td>{formatDate(p.experienceDate)}</td>
                   {user?.role === "admin" && (

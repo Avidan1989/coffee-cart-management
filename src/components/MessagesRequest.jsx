@@ -15,13 +15,25 @@ function MessagesRequest() {
       fetch("/messages-requests/my-requests", {
         credentials: "include",
       })
-        .then((res) => res.json())
-        .then((data) => setMessages(data))
+        .then((res) => {
+          if (!res.ok) throw new Error("שגיאה מהשרת");
+          return res.json();
+        })
+        .then((data) => {
+          if (Array.isArray(data)) {
+            setMessages(data);
+          } else {
+            console.error("Expected array but got:", data);
+            setMessages([]); // כדי לא להיתקע
+          }
+        })
         .catch((err) => {
           toast.error("שגיאה בשליפת ההודעות");
+          setMessages([]); // fallback במקרה חריג
         });
     }
   }, [view]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
